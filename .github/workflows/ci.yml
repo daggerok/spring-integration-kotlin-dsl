@@ -1,0 +1,36 @@
+name: CI
+on: [push]
+jobs:
+  integration-tests:
+    strategy:
+      matrix:
+        java: [14]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    name: integration tests
+    steps:
+    - uses: actions/checkout@v1
+    - uses: docker-practice/actions-setup-docker@master
+    - uses: actions/cache@v1
+      with:
+        path: ~/.docker
+        key: ${{ runner.os }}-docker-${{ hashFiles('**/config.json') }}
+        restore-keys: |
+          ${{ runner.os }}-docker-
+    - uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - uses: actions/cache@v1
+      with:
+        path: ~/.gradle
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradlew') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+    - run: sudo apt-get install --fix-missing httpie curl jq
+    - run: cd $GITHUB_WORKSPACE && ./gradlew clean build jibDockerBuild
+    - run: cd $GITHUB_WORKSPACE && ./gradlew dockerRun -P demonize=true
+    #- run: while [[ UP != `echo $(http get :8080/actuator/health | jq -r '.status')` ]] ; do sleep 1s ; echo -n '.' ; done
+    - run: while [[ 200 != `curl -s -o /dev/null -w '%{http_code}' 0:8080/actuator/health` ]] ; do sleep 1s ; echo -n '.' ; done
+    - run: cd $GITHUB_WORKSPACE && ./gradlew dockerRunStatus
+    - run: http get :8080/actuator/health
+    - run: cd $GITHUB_WORKSPACE && ./gradlew dockerStop
