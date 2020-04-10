@@ -13,6 +13,8 @@ plugins {
 val dockerUser: String by project
 val dockerImage: String by project
 val gradleWrapperVersion: String by project
+val `jackson-module-kotlin`: String by project
+val `kotlinx-coroutines-reactor`: String by project
 val javaVersion = JavaVersion.VERSION_14 // val javaVersion = JavaVersion.VERSION_11
 
 idea {
@@ -35,6 +37,8 @@ repositories {
 dependencies {
   implementation(kotlin("reflect"))
   implementation(kotlin("stdlib-jdk8"))
+  implementation(enforcedPlatform("com.fasterxml.jackson.module:jackson-module-kotlin:${`jackson-module-kotlin`}"))
+  implementation(enforcedPlatform("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:${`kotlinx-coroutines-reactor`}"))
   implementation("org.springframework.integration:spring-integration-file")
   implementation("org.springframework.boot:spring-boot-starter-integration")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
