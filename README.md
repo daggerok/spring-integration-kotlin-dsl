@@ -11,6 +11,17 @@ The following was discovered as part of building this project:
 
 -->
 
+## build, run, test
+
+```bash
+./gradlew clean build jibDockerBuild
+./gradlew dockerRun -P demonize=true
+docker logs -f -t spring-integration-kotlin-dsl &
+docker exec -i spring-integration-kotlin-dsl bash -c 'echo "ololo trololo" > /tmp/target/inputs/first-file.txt'
+docker exec -i spring-integration-kotlin-dsl bash -c 'echo "trololo|ololo" > /tmp/target/inputs/second-file.csv'
+./gradlew dockerStop
+```
+
 ## versions
 
 _git remote -> https_
@@ -26,6 +37,10 @@ _git remote -> git_
 ```bash
 ./gradlew reckonTagPush -Preckon.stage=final
 ```
+
+## other repositories
+* [GitHub: daggerok/spring-integration-java-DSL-example](https://github.com/daggerok/spring-integration-java-DSL-example)
+* [GitHub: daggerok/spring-integration-5-examples](https://github.com/daggerok/spring-integration-5-examples)
 
 ## resources
 * [Official Gradle documentation](https://docs.gradle.org)
