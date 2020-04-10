@@ -11,6 +11,22 @@ The following was discovered as part of building this project:
 
 -->
 
+## versions
+
+_git remote -> https_
+
+```bash
+./gradlew reckonTagPush -Preckon.stage=final \                                                17:31:40  
+  -Dorg.ajoberstar.grgit.auth.username=daggerok \
+  -Dorg.ajoberstar.grgit.auth.password=...
+```
+
+_git remote -> git_
+
+```bash
+./gradlew reckonTagPush -Preckon.stage=final
+```
+
 ## resources
 * [Official Gradle documentation](https://docs.gradle.org)
 * [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/gradle-plugin/reference/html/)
