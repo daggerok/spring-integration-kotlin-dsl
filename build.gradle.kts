@@ -15,6 +15,7 @@ val dockerImage: String by project
 val gradleWrapperVersion: String by project
 val `jackson-module-kotlin`: String by project
 val `kotlinx-coroutines-reactor`: String by project
+val kotlinJvmTargetVersion = JavaVersion.VERSION_13.toString()
 val javaVersion = JavaVersion.VERSION_14 // val javaVersion = JavaVersion.VERSION_11
 
 idea {
@@ -32,6 +33,7 @@ java.targetCompatibility = javaVersion
 
 repositories {
   mavenCentral()
+  maven(url = uri("https://repo.spring.io/milestone"))
 }
 
 dependencies {
@@ -55,8 +57,7 @@ tasks {
   withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
       freeCompilerArgs = listOf("-Xjsr305=strict")
-      jvmTarget = JavaVersion.VERSION_11.toString() // jvmTarget = "1.8"
-      // jvmTarget = javaVersion.toString()
+      jvmTarget = kotlinJvmTargetVersion // JavaVersion.VERSION_13.toString() // jvmTarget = javaVersion.toString() // jvmTarget = "1.8"
     }
   }
   withType<Test> {
@@ -117,6 +118,7 @@ jib {
     image = "$dockerUser/${project.name}"
   }
   container {
+    environment = mapOf("CI" to "true")
     user = "nobody:nogroup" // depends on base image in line 94!
   }
 }

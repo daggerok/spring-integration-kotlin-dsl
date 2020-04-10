@@ -1,5 +1,7 @@
 name: CI
 on: [push]
+env:
+  CI: 'true'
 jobs:
   integration-tests:
     strategy:
@@ -33,4 +35,11 @@ jobs:
     - run: while [[ 200 != `curl -s -o /dev/null -w '%{http_code}' 0:8080/actuator/health` ]] ; do sleep 1s ; echo -n '.' ; done
     - run: cd $GITHUB_WORKSPACE && ./gradlew dockerRunStatus
     - run: http get :8080/actuator/health
+    - run: |
+        docker logs -f -t spring-integration-kotlin-dsl &
+        sleep 1s
+        docker exec -i spring-integration-kotlin-dsl bash -c 'echo "ololo trololo" > /tmp/target/inputs/first-file.txt'
+        sleep 6s
+        docker exec -i spring-integration-kotlin-dsl bash -c 'echo "trololo|ololo" > /tmp/target/inputs/second-file.csv'
+        sleep 6s
     - run: cd $GITHUB_WORKSPACE && ./gradlew dockerStop
