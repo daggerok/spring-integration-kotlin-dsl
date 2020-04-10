@@ -16,7 +16,7 @@ The following was discovered as part of building this project:
 _git remote -> https_
 
 ```bash
-./gradlew reckonTagPush -Preckon.stage=final \                                                17:31:40  
+./gradlew reckonTagPush -Preckon.stage=final \
   -Dorg.ajoberstar.grgit.auth.username=daggerok \
   -Dorg.ajoberstar.grgit.auth.password=...
 ```
