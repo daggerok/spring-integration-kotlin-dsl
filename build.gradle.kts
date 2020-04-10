@@ -90,19 +90,19 @@ tasks {
   register("version") {
     println(project.version.toString())
   }
-  // register("status") {
-  //   doLast {
-  //     val status = grgit.status()
-  //     status?.let { s ->
-  //       println("workspace is clean: ${s.isClean}")
-  //       if (!s.isClean) {
-  //         if (s.unstaged.allChanges.isNotEmpty()) {
-  //           println("""all unstaged changes: ${s.unstaged.allChanges.joinToString(separator = "") { i -> "\n - $i" }}""")
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
+  register("status") {
+    doLast {
+      val status = grgit.status()
+      status?.let { s ->
+        println("workspace is clean: ${s.isClean}")
+        if (!s.isClean) {
+          if (s.unstaged.allChanges.isNotEmpty()) {
+            println("""all unstaged changes: ${s.unstaged.allChanges.joinToString(separator = "") { i -> "\n - $i" }}""")
+          }
+        }
+      }
+    }
+  }
 }
 
 jib {
