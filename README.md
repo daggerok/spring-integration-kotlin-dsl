@@ -43,6 +43,8 @@ _git remote -> git_
 * [GitHub: daggerok/spring-integration-5-examples](https://github.com/daggerok/spring-integration-5-examples)
 
 ## resources
+* https://www.youtube.com/watch?v=A9eDlMSTuE0
+* https://www.youtube.com/watch?v=1llAwgOKjTY
 * [Official Gradle documentation](https://docs.gradle.org)
 * [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.6.RELEASE/gradle-plugin/reference/html/)
 * [Coroutines section of the Spring Framework Documentation](https://docs.spring.io/spring/docs/5.2.5.RELEASE/spring-framework-reference/languages.html#coroutines)
